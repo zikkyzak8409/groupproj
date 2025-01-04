@@ -130,42 +130,6 @@ def current_map(): # Sets the next map when the player interacts with the door
         main.penup()
         main.goto(0,-270)
 
-going_up = False
-def start_going_up(): # Controls the player's 'up' movement
-    global going_up
-    going_up = True
-def stop_going_up():
-    global going_up
-    going_up = False
-def go_up():
-    if going_up == True:
-        y = main.ycor()
-        main.sety(y + 0.1)
-
-going_down = False
-def start_going_down(): # Controls the player's 'down' movement
-    global going_down
-    going_down = True
-def stop_going_down():
-    global going_down
-    going_down = False
-def go_down():
-    if going_down == True:
-        y = main.ycor()
-        main.sety(y - 0.1)
-
-going_left = False
-def start_going_left(): # Controls the player's 'left' movement
-    global going_left
-    going_left = True
-def stop_going_left():
-    global going_left
-    going_left = False
-def go_left():
-    if going_left == True:
-        x = main.xcor()
-        main.setx(x - 0.1)
-
 #We made a class for key presses to clean up the spaghetti code
 #This code is heavily referenced from AI generated code but remains
 #Solely written and applied by us :)
@@ -242,9 +206,8 @@ def fire_bulet():  # Controls the bullet travelling
 
 def movingbulet():
     global bulet_count
-    print(bulet_count)
     for bullet in bulet_count:
-        bulet.forward(0.4)
+        bullet.forward(0.4)
     
    
 def end_game(): # Function to end game once the player completes the game or ends once died
