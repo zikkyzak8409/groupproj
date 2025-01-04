@@ -5,11 +5,6 @@ import time
 import sys
 import math
 from threading import *
-from PIL import Image
-
-#Images
-imgp = 'plr.gif'
-img = Image.open(imgp)
 
 delay = 0.0000001
 next_map = -1
@@ -35,6 +30,9 @@ gui.geometry('600x600')
 cnv = Canvas(gui,width=600,height=600)
 cnv.pack()
 wn = turtle.TurtleScreen(cnv)
+#Images
+imgp = 'plr.gif'
+img = PhotoImage(file=imgp)
 wn.addshape(imgp)
 main = turtle.RawTurtle(wn)
 bulet = turtle.RawTurtle(wn)
