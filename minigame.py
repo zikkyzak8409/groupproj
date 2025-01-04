@@ -5,6 +5,7 @@ import time
 import sys
 import math
 from threading import *
+from PIL import Image
 
 #Images
 imgp = 'plr.gif'
