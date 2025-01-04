@@ -44,6 +44,7 @@ normal_choice.hideturtle()
 hard_choice.hideturtle()
 
 melee_enemies = [] # Sets the enemy count to zero
+bulet_count = []
 
 def restart():# The main game function
     global current_hp
@@ -228,12 +229,14 @@ def En_movy():
 
 
 def fire_bulet():  # Controls the bullet travelling
-    global character_angle
+    global character_angle, bulet, bulet_count
     x = main.xcor()
     y = main.ycor()
-    if buletstate == "ready":
-        bulet.goto(x,y)
-        bulet.setheading(character_angle)
+    bulet_count.append(bulet)
+    for bulet in bulet_count:
+        bulet.setx(x)
+        bulet.sety(y)
+        bulet.setheading(character_angle))
        
 def movingbulet():
     bulet.penup()
