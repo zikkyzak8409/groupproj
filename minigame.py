@@ -9,6 +9,11 @@ from threading import *
 delay = 0.0000001
 next_map = -1
 difficulty = 10
+pSpeed = 40
+
+#Delta time chicanery
+d1 = time.time()
+d2 = time.time()
 
 gui = Tk()
 gui.geometry('600x600')
@@ -139,7 +144,7 @@ def stop_going_up():
 def go_up():
     if going_up == True:
         y = main.ycor()
-        main.sety(y + 0.2)
+        main.sety(y + 0.1)
 
 going_down = False
 def start_going_down(): # Controls the player's 'down' movement
@@ -151,7 +156,7 @@ def stop_going_down():
 def go_down():
     if going_down == True:
         y = main.ycor()
-        main.sety(y - 0.2)
+        main.sety(y - 0.1)
 
 going_left = False
 def start_going_left(): # Controls the player's 'left' movement
@@ -163,7 +168,7 @@ def stop_going_left():
 def go_left():
     if going_left == True:
         x = main.xcor()
-        main.setx(x - 0.2)
+        main.setx(x - 0.1)
 
 #We made a class for key presses to clean up the spaghetti code
 #This code is heavily referenced from AI generated code but remains
@@ -176,10 +181,10 @@ class KeyTracker:
         gui.bind("<KeyPress>", self.key_press)
         gui.bind("<KeyRelease>", self.key_release)
     def key_press(self, event):
-        self.keys.add(event.keysym)
+        self.keys.add(event.keysym.lower())
         self.update_label()
     def key_release(self, event):
-        self.keys.discard(event.keysym)
+        self.keys.discard(event.keysym.lower())
         self.update_label()
     def update_label(self):
         self.label.config(text=f"Keys down: {self.keys}")
@@ -187,18 +192,12 @@ class KeyTracker:
     def run(self):
         self.label = Label(self.gui)
         self.label.place(x=5,y=5)
+    def isPressed(self,keyPressed):
+        if keyPressed in self.keys:
+            return True
+        else: return False
 
-going_right = False
-def start_going_right(): # Controls the player's 'right' movement
-    global going_right
-    going_right = True
-def stop_going_right():
-    global going_right
-    going_right = False
-def go_right():
-    if going_right == True:
-        x = main.xcor()
-        main.setx(x + 0.2)
+#Enemy movements
 
 def En_movx():
     for enemy in melee_enemies: # Controls the enemy's x-axis movement towards the player
@@ -236,7 +235,7 @@ def fire_bulet():  # Controls the bullet travelling
     for bulet in bulet_count:
         bulet.setx(x)
         bulet.sety(y)
-        bulet.setheading(character_angle))
+        bulet.setheading(character_angle)
        
 def movingbulet():
     bulet.penup()
@@ -247,7 +246,20 @@ def end_game(): # Function to end game once the player completes the game or end
     sys.exit()
 
 def movement():
-    global keyt
+    global keyt, pSpeed, d1, d2
+    d1 = time.time()
+    factor = d1-d2
+    if keyt.isPressed('w'):
+        main.sety(main.ycor()+pSpeed*factor)
+    if keyt.isPressed('a'):
+        main.setx(main.xcor()-pSpeed*factor)
+    if keyt.isPressed('s'):
+        main.sety(main.ycor()-pSpeed*factor)
+    if keyt.isPressed('d'):
+        main.setx(main.xcor()+pSpeed*factor)
+    if keyt.isPressed('space'):
+        fire_bulet()
+    d2 = time.time()
 
 def game_loop(): # Main game loop
     global loop_trigger
@@ -275,10 +287,7 @@ def game_loop(): # Main game loop
             wn.onkey(restart_game, 'r') # Enables 'R' for the player to restart
             wn.onkey(end_game, 'p') # Enables 'P' for the player to end the program
            
-        go_down()
-        go_up()
-        go_left()
-        go_right()
+        
         En_movx()
         En_movy()
         movingbulet()
