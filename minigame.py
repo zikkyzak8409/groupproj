@@ -188,7 +188,8 @@ def En_movy():
 
 
 def fire_bulet():  # Controls the bullet travelling
-    global character_angle, bulet_count
+    global character_angle, bulet_count, d3
+    d3 = time.time()
     x = main.xcor()
     y = main.ycor()
     bulet = turtle.RawTurtle(wn)
