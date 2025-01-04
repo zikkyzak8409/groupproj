@@ -138,7 +138,7 @@ def stop_going_up():
 def go_up():
     if going_up == True:
         y = main.ycor()
-        main.sety(y + 0.1)
+        main.sety(y + 0.2)
 
 going_down = False
 def start_going_down(): # Controls the player's 'down' movement
@@ -150,7 +150,7 @@ def stop_going_down():
 def go_down():
     if going_down == True:
         y = main.ycor()
-        main.sety(y - 0.1)
+        main.sety(y - 0.2)
 
 going_left = False
 def start_going_left(): # Controls the player's 'left' movement
@@ -162,7 +162,7 @@ def stop_going_left():
 def go_left():
     if going_left == True:
         x = main.xcor()
-        main.setx(x - 0.1)
+        main.setx(x - 0.2)
 
 #We made a class for key presses to clean up the spaghetti code
 #This code is heavily referenced from AI generated code but remains
@@ -197,7 +197,7 @@ def stop_going_right():
 def go_right():
     if going_right == True:
         x = main.xcor()
-        main.setx(x + 0.1)
+        main.setx(x + 0.2)
 
 def En_movx():
     for enemy in melee_enemies: # Controls the enemy's x-axis movement towards the player
