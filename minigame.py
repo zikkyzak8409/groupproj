@@ -10,8 +10,9 @@ delay = 0.0000001
 next_map = -1
 difficulty = 10
 pSpeed = 40
-pRate = 0.1
-bSpeed = 40
+pRate = 0.5
+bSpeed = 60
+eSpeed = 50
 
 #Delta time chicanery
 d1 = time.time()
@@ -19,6 +20,10 @@ d2 = time.time()
 d3 = time.time()
 d4 = time.time()
 d5 = time.time()
+d6 = time.time()
+d7 = time.time()
+d8 = time.time()
+d9 = time.time()
 
 gui = Tk()
 gui.geometry('600x600')
@@ -163,30 +168,37 @@ class KeyTracker:
 #Enemy movements
 
 def En_movx():
-    for enemy in melee_enemies: # Controls the enemy's x-axis movement towards the player
+    global d6, d7
+    d6 = time.time()
+    factor = d6 - d7
+    for enemy in melee_enemies: # Controls the enemy's x-axis movement towards the player    
         x = main.xcor()
         bad_x = enemy.xcor()
         if x > bad_x:
             x = enemy.xcor()
-            enemy.setx(x + 0.02)
+            enemy.setx(eSpeed * factor)
         x = main.xcor()
         bad_x = enemy.xcor()
         if x < bad_x:
             x = enemy.xcor()
-            enemy.setx(x - 0.02)
+            enemy.setx(-eSpeed * factor)
+    d7 = time.time()
 
 def En_movy():
+    global d8, d9
+    d8 = time.time()
     for enemy in melee_enemies: # Controls the enemy's y-axis movement towards the player
         y = main.ycor()
         bad_y = enemy.ycor()
         if y > bad_y:
             y = enemy.ycor()
-            enemy.sety(y + 0.02)
+            enemy.sety(eSpeed * factor)
         y = main.ycor()
         bad_y = enemy.ycor()
         if y < bad_y:
             y = enemy.ycor()
-            enemy.sety(y - 0.02)
+            enemy.sety(-eSpeed * factor)
+    d9 = time.time()
 
 
 
@@ -233,6 +245,9 @@ def movement():
     if keyt.isPressed('space'):
         if time.time()-d3 > pRate:
             fire_bulet()
+    if keyt.isPressed('e'):
+        current_map()
+        
     d2 = time.time()
 
 def game_loop(): # Main game loop
