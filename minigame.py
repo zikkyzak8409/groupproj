@@ -6,6 +6,10 @@ import sys
 import math
 from threading import *
 
+#Images
+imgp = 'plr.gif'
+img = Image.open(imgp)
+
 delay = 0.0000001
 next_map = -1
 difficulty = 10
@@ -30,6 +34,7 @@ gui.geometry('600x600')
 cnv = Canvas(gui,width=600,height=600)
 cnv.pack()
 wn = turtle.TurtleScreen(cnv)
+wn.addshape(imgp)
 main = turtle.RawTurtle(wn)
 bulet = turtle.RawTurtle(wn)
 pen = turtle.RawTurtle(wn)
@@ -40,6 +45,7 @@ end_pen = turtle.RawTurtle(wn)
 easy_choice = turtle.RawTurtle(wn)
 normal_choice = turtle.RawTurtle(wn)
 hard_choice = turtle.RawTurtle(wn)
+plr = turtle.RawTurtle(wn)
 character_angle = 0
 
 current_hp = 100 # Starter health for the player
@@ -57,6 +63,7 @@ end_pen.hideturtle()
 easy_choice.hideturtle()
 normal_choice.hideturtle()
 hard_choice.hideturtle()
+plr.hideturtle()
 
 melee_enemies = [] # Sets the enemy count to zero
 bulet_count = []
