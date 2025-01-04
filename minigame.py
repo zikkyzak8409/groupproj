@@ -246,7 +246,8 @@ def movement():
         if time.time()-d3 > pRate:
             fire_bulet()
     if keyt.isPressed('e'):
-        current_map()
+        if door_close and main.distance(door) < 80:
+            current_map()
         
     d2 = time.time()
 
