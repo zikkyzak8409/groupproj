@@ -10,10 +10,12 @@ delay = 0.0000001
 next_map = -1
 difficulty = 10
 pSpeed = 40
+pRate = 1
 
 #Delta time chicanery
 d1 = time.time()
 d2 = time.time()
+d3 = time.time()
 
 gui = Tk()
 gui.geometry('600x600')
@@ -72,13 +74,7 @@ def restart():# The main game function
     main.goto(0,0)
     main.showturtle()
     main.direction = "stop"
-    bulet.showturtle()
-    bulet.shape('square') # Makes the bullet
-    bulet.color('yellow')
-    bulet.penup()
-    bulet.speed(0)
-    bulet.showturtle()
-    bulet.shapesize(0.5,0.5)
+    
     buletstate = "ready"
     pen.showturtle()
     pen.speed(0) # Sets the pen that displays the player's health
@@ -228,25 +224,34 @@ def En_movy():
 
 
 def fire_bulet():  # Controls the bullet travelling
-    global character_angle, bulet, bulet_count
+    global character_angle, bulet_count
     x = main.xcor()
     y = main.ycor()
-    bulet_count.append(bulet)
-    for bulet in bulet_count:
-        bulet.setx(x)
-        bulet.sety(y)
-        bulet.setheading(character_angle)
-       
-def movingbulet():
+    bulet = turtle.RawTurtle(wn)
+    bulet.showturtle()
+    bulet.shape('square') # Makes the bullet
+    bulet.color('yellow')
     bulet.penup()
-    bulet.forward(0.4)
+    bulet.speed(0)
+    bulet.showturtle()
+    bulet.shapesize(0.5,0.5)
+    bulet.setx(x)
+    bulet.sety(y)
+    bulet.setheading(character_angle)
+    bulet_count.append(bulet)
+
+def movingbulet():
+    global bulet_count
+    print(bulet_count)
+    for bullet in bulet_count:
+        bulet.forward(0.4)
     
    
 def end_game(): # Function to end game once the player completes the game or ends once died
     sys.exit()
 
 def movement():
-    global keyt, pSpeed, d1, d2
+    global keyt, pSpeed, d1, d2, pRate, d3
     d1 = time.time()
     factor = d1-d2
     if keyt.isPressed('w'):
@@ -258,7 +263,8 @@ def movement():
     if keyt.isPressed('d'):
         main.setx(main.xcor()+pSpeed*factor)
     if keyt.isPressed('space'):
-        fire_bulet()
+        if time.time()-d3 > pRate:
+            fire_bulet()
     d2 = time.time()
 
 def game_loop(): # Main game loop
