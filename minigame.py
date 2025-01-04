@@ -90,6 +90,12 @@ def restart():# The main game function
     main.goto(0,0)
     main.showturtle()
     main.direction = "stop"
+
+    plr.speed(0)
+    plr.shape(imgp)
+    plr.penup()
+    plr.goto(0,0)
+    plr.showturtle()
     
     buletstate = "ready"
     pen.showturtle()
