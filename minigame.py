@@ -10,12 +10,15 @@ delay = 0.0000001
 next_map = -1
 difficulty = 10
 pSpeed = 40
-pRate = 1
+pRate = 0.1
+bSpeed = 40
 
 #Delta time chicanery
 d1 = time.time()
 d2 = time.time()
 d3 = time.time()
+d4 = time.time()
+d5 = time.time()
 
 gui = Tk()
 gui.geometry('600x600')
@@ -206,10 +209,11 @@ def fire_bulet():  # Controls the bullet travelling
     bulet_count.append(bulet)
 
 def movingbulet():
-    global bulet_count
+    global bulet_count,d4,d5,bSpeed
+    d4 = time.time()
     for bullet in bulet_count:
-        bullet.forward(0.4)
-    
+        bullet.forward(bSpeed*(d4-d5))
+    d5 = time.time()
    
 def end_game(): # Function to end game once the player completes the game or ends once died
     sys.exit()
